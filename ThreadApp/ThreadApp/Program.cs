@@ -7,67 +7,57 @@ using System.Threading;
 
 namespace ThreadApp
 {
-    //https://www.youtube.com/watch?v=XplEHgqBQhE&list=PLU8oAlHdN5BmpIQGDSHo5e1r4ZYWQ8m4B&index=111&ab_channel=pildorasinformaticas
+    //https://www.youtube.com/watch?v=2YCIAYk63ns&list=PLU8oAlHdN5BmpIQGDSHo5e1r4ZYWQ8m4B&index=111&ab_channel=pildorasinformaticas
+    //usando  el TaskCompletionSouce para  que una tarea comienze siempre y cuando las anteriores hayan terminado su trabajo.    Curso C#. Threads IV. Tareas completadas. Vídeo 111
+    //TaskCompletionSouce es como una condicion. El siguiente  hilo se ejecutara siempre y cuando los anteriores hilos hayan termiando su tarea.
+    //cuando se esta manjeando socket (minetras el socket no se haya cerrado no realice otro) o conexciones de base de datos (mientras este la conexion con la base de datos no realice otra tarea) 
     class Program
     {
         static void Main(string[] args)
         {
-            CuentaBancaria CuentaFamilia = new CuentaBancaria(2000);
 
+            var tareaTerminada = new TaskCompletionSource<bool>();
 
-            Thread[] hilosPersonas = new Thread[15];
-
-            for (int i = 0; i < 15; i++)
+            var hilo1 = new Thread(() =>
             {
-                Thread t = new Thread(CuentaFamilia.VamosRetirarEfectivo);
-                t.Name = i.ToString();
-                hilosPersonas[i] = t;
-            }
-            foreach (Thread t in hilosPersonas) t.Start();
+                for (int i = 0; i < 5; i++)
+                {
+                    Console.WriteLine("Hilo 1");
+                    Thread.Sleep(1000);
+                }
 
-           // Console.ReadLine();
+                tareaTerminada.TrySetResult(true);
+            });
+
+            var hilo2 = new Thread(() =>
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    Console.WriteLine("Hilo 2");
+                    Thread.Sleep(1000);
+                }
+
+            });
+
+            var hilo3 = new Thread(() =>
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    Console.WriteLine("Hilo 2");
+                    Thread.Sleep(1000);
+                }
+                tareaTerminada.TrySetResult(true);
+
+            });
+
+            hilo1.Start();
+            hilo2.Start();
+            var resultado = tareaTerminada.Task.Result;
+           
+            hilo3.Start();
 
         }
 
-        class CuentaBancaria
-        {
-            private Object bloquearSaldoPositivo = new object();
-            double Saldo { set; get; }
-            public CuentaBancaria(double Saldo)
-            {
-                this.Saldo = Saldo;
-            }
-
-            public double RetirarEfectivo(double cantidad)
-            {
-                if ((Saldo - cantidad) < 0)
-                {
-                    Console.WriteLine($"I'm sorry ${Saldo} peso in the account left  Hilo: {Thread.CurrentThread.Name}");
-                    return Saldo;
-                }
-
-                lock (bloquearSaldoPositivo) { 
-                    if (Saldo >= cantidad)
-                    {
-                        Console.WriteLine("Retirado {0} y queda {1} en la cuenta. {2}", cantidad, (Saldo -cantidad), Thread.CurrentThread.Name);
-                        Saldo -= cantidad;
-                    }
-
-                return Saldo;
-
-                }
-
-            }
-
-            public void VamosRetirarEfectivo()
-            {
-                Console.WriteLine("Esta sacando dinero el hilo: {0}", Thread.CurrentThread.Name);
-                for (int i = 0; i < 4; i++)
-                {
-                    RetirarEfectivo(500);
-                }
-               
-            }
-        }
+      
     }
 }
