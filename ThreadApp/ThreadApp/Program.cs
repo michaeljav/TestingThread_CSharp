@@ -32,7 +32,7 @@ namespace ThreadApp
                  *  Thread t = new Thread(EjecutarTarea);
                   t.Start();*/
 
-                ThreadPool.QueueUserWorkItem(EjecutarTarea);
+                ThreadPool.QueueUserWorkItem(EjecutarTarea, i);
             }
 
             Console.ReadLine();
@@ -40,11 +40,12 @@ namespace ThreadApp
 
         static void EjecutarTarea(Object o )
         {
-            Console.WriteLine($"Thread n: {Thread.CurrentThread.ManagedThreadId} ha comenzado su tarea  ");
+            int nTarea = (int)o;
+            Console.WriteLine($"Thread n: {Thread.CurrentThread.ManagedThreadId} ha comenzado la tarea  n  "+nTarea);
 
             Thread.Sleep(1000);
 
-            Console.WriteLine($"Thread n: {Thread.CurrentThread.ManagedThreadId} ha terminado su tarea  ");
+            Console.WriteLine($"Thread n: {Thread.CurrentThread.ManagedThreadId} ha terminado  la tarea  n  " + nTarea);
         }
 
 
