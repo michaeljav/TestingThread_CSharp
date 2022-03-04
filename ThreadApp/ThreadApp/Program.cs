@@ -7,10 +7,10 @@ using System.Threading;
 
 namespace ThreadApp
 {
-    //   TASK Run
+    //   TASK Run de forma consecutiva  / Task run consecutively consecutively
     //https://www.youtube.com/watch?v=x0gO4FoLJgg&list=PLU8oAlHdN5BmpIQGDSHo5e1r4ZYWQ8m4B&index=114&ab_channel=pildorasinformaticas
     //Curso C#. TASK II. Vídeo 114
-    //manera mas abreviada de crear hilos
+    //correr hilos despues de la corrida de los anteriores /run threads after running previous ones
 
     class Program
     {
@@ -22,7 +22,7 @@ namespace ThreadApp
             //task.Start();
 
             Task tarea = Task.Run(() => EjecutarTarea());
-            Task tarea2 = Task.Run(() => EjecutarOtraTarea());
+            Task tarea2 = tarea.ContinueWith(EjecutarOtraTarea);
 
             //Task task2 = new Task(() =>
             //{
@@ -44,7 +44,7 @@ namespace ThreadApp
             Console.ReadLine();
         }
 
-        static void EjecutarTarea( )
+        static void EjecutarTarea()
         {
 
             for (int i = 0; i < 10; i++)
@@ -58,7 +58,7 @@ namespace ThreadApp
                     
         }
 
-        static void EjecutarOtraTarea()
+        static void EjecutarOtraTarea(Task obj)
         {
 
             for (int i = 0; i < 10; i++)

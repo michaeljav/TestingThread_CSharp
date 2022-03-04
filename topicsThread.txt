@@ -18,3 +18,5 @@
  	y si tiene mucha capacidad el procesador entonce crea mas thread para realizar la tareas. 
 	If the computer does not have the capacity to create 5 threads, then it creates 2 automatically to manage the resources and if the processor has a lot of capacity,
 	 then it creates more threads to perform the tasks.
+6.Task.run other way to create thread faster.
+7.Task.run continueWith: run task after one. consecutively
