@@ -10,7 +10,7 @@ namespace ThreadApp
     //   Parallel.for
     //https://www.youtube.com/watch?v=LwxTVdyUXdM&list=PLU8oAlHdN5BmpIQGDSHo5e1r4ZYWQ8m4B&index=119
     //Curso C#. Clase Parallel. Vídeo 116
-    //
+    //Crea hilos para poder hacer la tarea mas rapido
 
     class Program
     {
