@@ -7,10 +7,10 @@ using System.Threading;
 
 namespace ThreadApp
 {
-    //   TASK Run de forma consecutiva  / Task run consecutively consecutively
+    //   TASK waitAll, waitANy, wait
     //https://www.youtube.com/watch?v=x0gO4FoLJgg&list=PLU8oAlHdN5BmpIQGDSHo5e1r4ZYWQ8m4B&index=114&ab_channel=pildorasinformaticas
-    //Curso C#. TASK II. Vídeo 114
-    //correr hilos despues de la corrida de los anteriores /run threads after running previous ones
+    //Curso C#. TASK III. Vídeo 115
+    //
 
     class Program
     {
@@ -18,59 +18,75 @@ namespace ThreadApp
         static async  Task Main(string[] args)
         {
 
-            //Task task = new Task(EjecutarTarea);
-            //task.Start();
-
-            Task tarea = Task.Run(() => EjecutarTarea());
-            Task tarea2 = tarea.ContinueWith(EjecutarOtraTarea);
-
-            //Task task2 = new Task(() =>
-            //{
-            //    for (int i = 0; i < 100; i++)
-            //    {
-            //        var miThread = Thread.CurrentThread.ManagedThreadId;
-
-            //        Thread.Sleep(1000);
-
-            //        Console.WriteLine($"Tarea  corresponde al Thread : " + miThread + " EJecutandose desde el main");
-
-            //    }
-
-            //});
-            //task2.Start();
-            //await task;
-            Console.WriteLine("Finished main");
+            RealizarTodasTareas();
 
             Console.ReadLine();
         }
 
+
+        static void RealizarTodasTareas()
+        {
+          var task = Task.Run(() =>
+            {
+              EjecutarTarea();
+            });
+
+         var task2 = Task.Run(() =>
+            {
+              EjecutarTarea2();
+            });
+
+            Task.WaitAll(task, task2);
+         var task3 = Task.Run(() =>
+            {
+              EjecutarTarea3();
+            });
+          
+          
+         
+        }
         static void EjecutarTarea()
         {
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 5; i++)
             {
                 var miThread = Thread.CurrentThread.ManagedThreadId;
 
                 Thread.Sleep(1000);
 
-                Console.WriteLine($"Esta vuelta de bucle corresponde al Thread : " +miThread);
+                Console.WriteLine($"Esta vuelta de bucle corresponde tarea 1");
             }
                     
         }
 
-        static void EjecutarOtraTarea(Task obj)
+        static void EjecutarTarea2()
         {
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 5; i++)
             {
                 var miThread = Thread.CurrentThread.ManagedThreadId;
 
-                Thread.Sleep(1000);
+                Thread.Sleep(500);
 
-                Console.WriteLine($"Esto es otra tareaEsta y esta vuelta de bucle corresponde al Thread : " + miThread);
+                Console.WriteLine($"Esta vuelta de bucle corresponde  tarea 2");
             }
 
         }
+
+        static void EjecutarTarea3()
+        {
+
+            for (int i = 0; i < 5; i++)
+            {
+                var miThread = Thread.CurrentThread.ManagedThreadId;
+
+                Thread.Sleep(500);
+
+                Console.WriteLine($"Esta vuelta de bucle corresponde  tarea 3");
+            }
+
+        }
+
 
 
 
