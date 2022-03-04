@@ -36,7 +36,7 @@ namespace ThreadApp
               EjecutarTarea2();
             });
 
-            Task.WaitAll(task, task2);
+            Task.WaitAny(task, task2);
          var task3 = Task.Run(() =>
             {
               EjecutarTarea3();
