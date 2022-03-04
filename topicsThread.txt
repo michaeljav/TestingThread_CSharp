@@ -1,0 +1,20 @@
+1.Creating Thread  
+2.Join :run threads synchronously; that is, one after the other.
+3.lock: locks the code so another thread doesn't use it until it finishes running that block.
+4.TaskCompletionSouce: wait until previous threads finish
+5.ThreadPool: reuse thread automatically
+6.Task -(Recomendado usar por que gestiona solo las thread dependiendo de los recurso de la pc):  si tienes muchos 4 nucleos  y 3 tareas  funciona bien, pero si tienes 2 nucleos y 3 tareas esta sobre cargado
+        el procesador. Asi que la task administra. 
+	if you have many 4 cores and 3 tasks it works fine, but if you have 2 cores and 3 tasks the processor is overloaded. So the task manages.
+	El objeto  Task surgió para solventar el problema de sobre utilizar o infra utilizar un procesador
+	the Task object arose to solve the problem of overusing or underusing a processor.
+        ******
+        las Tasks  es colocada un nivel por encima de los hilos
+        usan  threadpool internamente para poder gestionar las cantidades de 
+	hilos.
+	Tasks are placed one level above threads, they use threadpool internally to be able to manage the amounts of
+	threads.
+        Si el computador no tiene capacidad para crear 5 thread, entonces crea 2 automaticamente para administrar los recursos
+ 	y si tiene mucha capacidad el procesador entonce crea mas thread para realizar la tareas. 
+	If the computer does not have the capacity to create 5 threads, then it creates 2 automatically to manage the resources and if the processor has a lot of capacity,
+	 then it creates more threads to perform the tasks.
