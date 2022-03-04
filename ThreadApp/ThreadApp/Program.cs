@@ -7,7 +7,7 @@ using System.Threading;
 
 namespace ThreadApp
 {
-    //   Parallel.for
+    //   Cancel Task
     //https://www.youtube.com/watch?v=Gl-DQxoDtZ4&list=PLU8oAlHdN5BmpIQGDSHo5e1r4ZYWQ8m4B&index=118&ab_channel=pildorasinformaticas
     //Curso C#. Cancelación de Task. Vídeo 117
     //cacelation of task
