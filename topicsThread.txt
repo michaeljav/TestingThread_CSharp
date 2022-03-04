@@ -22,3 +22,5 @@
 7.Task.run continueWith: run task after one. consecutively
 8.task.run waitAll(),waitAny,wait
 9.Parallel.For : create thread to do the task
+10.CancellationTokenSource and CancellationToken:  CancellationTokenSource object points to the token that should interrupt the task /
+                                                   CancellationToken object that cancel the task or thread
