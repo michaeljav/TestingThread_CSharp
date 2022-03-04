@@ -7,85 +7,43 @@ using System.Threading;
 
 namespace ThreadApp
 {
-    //   TASK waitAll, waitANy, wait
-    //https://www.youtube.com/watch?v=x0gO4FoLJgg&list=PLU8oAlHdN5BmpIQGDSHo5e1r4ZYWQ8m4B&index=114&ab_channel=pildorasinformaticas
-    //Curso C#. TASK III. Vídeo 115
+    //   Parallel.for
+    //https://www.youtube.com/watch?v=LwxTVdyUXdM&list=PLU8oAlHdN5BmpIQGDSHo5e1r4ZYWQ8m4B&index=119
+    //Curso C#. Clase Parallel. Vídeo 116
     //
 
     class Program
     {
-        
+        private static int accumulador = 0;
         static async  Task Main(string[] args)
         {
 
-            RealizarTodasTareas();
+            Parallel.For(0, 100, EjecutarTarea);
 
             Console.ReadLine();
         }
 
 
-        static void RealizarTodasTareas()
+      
+        static void EjecutarTarea( int dato )
         {
-          var task = Task.Run(() =>
+            Console.WriteLine($"Acumulador vale {accumulador}. Tarea realizada por el hilo {Thread.CurrentThread.ManagedThreadId}");
+            if ((accumulador % 2 ) == 0)
             {
-              EjecutarTarea();
-            });
-            task.Wait();
-         var task2 = Task.Run(() =>
+                accumulador += dato;
+                Thread.Sleep(100);
+            }
+            else
             {
-              EjecutarTarea2();
-            });
+                accumulador -= dato;
+                Thread.Sleep(100);
+            }
 
            
-         var task3 = Task.Run(() =>
-            {
-              EjecutarTarea3();
-            });
-          
-          
-         
-        }
-        static void EjecutarTarea()
-        {
-
-            for (int i = 0; i < 5; i++)
-            {
-                var miThread = Thread.CurrentThread.ManagedThreadId;
-
-                Thread.Sleep(1000);
-
-                Console.WriteLine($"Esta vuelta de bucle corresponde tarea 1");
-            }
                     
         }
 
-        static void EjecutarTarea2()
-        {
-
-            for (int i = 0; i < 5; i++)
-            {
-                var miThread = Thread.CurrentThread.ManagedThreadId;
-
-                Thread.Sleep(500);
-
-                Console.WriteLine($"Esta vuelta de bucle corresponde  tarea 2");
-            }
-
-        }
-
-        static void EjecutarTarea3()
-        {
-
-            for (int i = 0; i < 5; i++)
-            {
-                var miThread = Thread.CurrentThread.ManagedThreadId;
-
-                Thread.Sleep(500);
-
-                Console.WriteLine($"Esta vuelta de bucle corresponde  tarea 3");
-            }
-
-        }
+      
 
 
 

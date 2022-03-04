@@ -21,4 +21,4 @@
 6.Task.run other way to create thread faster.
 7.Task.run continueWith: run task after one. consecutively
 8.task.run waitAll(),waitAny,wait
-
+9.Parallel.For : create thread to do the task
